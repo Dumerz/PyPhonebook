@@ -1,4 +1,3 @@
-#!/C:/Users/Lloyd/Desktop/Asean_Phonebook
 # Filename: Asean_Phonanebook.py
 
 # Class Scheme for the phonebook record
@@ -25,21 +24,32 @@ class Student:
 		self.number = number
 
 class Phonebook:
-	name = ""
+	students = []
 
-	def __init__(self, name):
-		self.name = name
+	def run(self):
+		self.handleShowMenuMain();
+
+	def handleShowMenuMain(self):
+		selected = self.showMenuMain()
+		if selected == 1:
+			self.storeStudent()
+		elif selected == 2:
+			print("2 was selected")
+		elif selected == 3:
+			print("3 was selected")
+		else:
+			self.exit()
 
 	def showMenuMain(self):
 		response = 0
-		while self.isSelectedMenuInvalid(response) :
+		while self.isSelectedMenuInvalid(response):
 			print("\n")
 			print("[1] Store ASEAN phonebook")
 			print("[2] Edit Entry in ASEAN phonebook") 
 			print("[3] Search ASEAN phonebook by country")
 			print("[4] Exit");
 			response = raw_input("Choose a number from the list: ")
-		return response
+		return int(response)
 
 	def isSelectedMenuInvalid(self, entry):
 		if int(entry) in [1, 2, 3, 4]:
@@ -48,15 +58,18 @@ class Phonebook:
 			return True
 
 	def storeStudent(self):
-		response = raw_input("Enter a student number: ")
-		response = raw_input("Enter surname: ")
-		response = raw_input("Enter first name: ")
-		response = raw_input("Enter occupation: ")
-		response = raw_input("M for male, F for Female : ")
-		response = raw_input("Enter country code: ")
-		response = raw_input("Enter area code: ")
-		response = raw_input("Enter number: ")
-		response = raw_input("Do you want to enter another entry [Y/N]? ")
+		studNumber = raw_input("Enter a student number: ")
+		studNameSur = raw_input("Enter surname: ")
+		studNameFirst = raw_input("Enter first name: ")
+		studOccupation = raw_input("Enter occupation: ")
+		studSex = raw_input("M for male, F for Female : ")
+		studCodeCountry = raw_input("Enter country code: ")
+		studCodeArea = raw_input("Enter area code: ")
+		studNumber = raw_input("Enter number: ")
+		student = Student(studNumber, studNameSur, studNameFirst, studOccupation, studSex, studCodeCountry, studCodeArea, studNumber)
+		self.students.append(student)
+		isAnotherEntry = raw_input("Do you want to enter another entry [Y/N]? ")
+		self.handleShowMenuMain();
 
 	def editStudent(self):
 		response = raw_input("Enter student number: ")
@@ -76,7 +89,8 @@ class Phonebook:
 		response = raw_input("Enter choice 1: ")
 
 	def exit(self):
-		pass
+		print("\nBye!")
 
-aseanPhonebook = Phonebook("Name")
-aseanPhonebook.showMenuMain()
+aseanPhonebook = Phonebook()
+aseanPhonebook.run()
+
