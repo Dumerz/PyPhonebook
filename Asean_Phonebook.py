@@ -32,16 +32,16 @@ class Phonebook:
 
 	def showMenuMain(self):
 		response = 0
-		while self.isSelectedMenuValid(response) :
+		while self.isSelectedMenuInvalid(response) :
 			print("\n")
 			print("[1] Store ASEAN phonebook")
 			print("[2] Edit Entry in ASEAN phonebook") 
 			print("[3] Search ASEAN phonebook by country")
 			print("[4] Exit");
 			response = raw_input("Choose a number from the list: ")
-			return response
+		return response
 
-	def isSelectedMenuValid(self, entry):
+	def isSelectedMenuInvalid(self, entry):
 		if int(entry) in [1, 2, 3, 4]:
 			return False
 		else:
