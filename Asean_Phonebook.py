@@ -31,12 +31,21 @@ class Phonebook:
 		self.name = name
 
 	def showMenuMain(self):
-		print ("[1] Store ASEAN phonebook")
-		print ("[2] Edit Entry in ASEAN phonebook") 
-		print ("[3] Search ASEAN phonebook by country")
-		print ("[4] Exit");
-		response = raw_input("Choose a number from the list: ")
-                #return int(response)
+		response = 0
+		while self.isSelectedMenuValid(response) :
+			print("\n")
+			print("[1] Store ASEAN phonebook")
+			print("[2] Edit Entry in ASEAN phonebook") 
+			print("[3] Search ASEAN phonebook by country")
+			print("[4] Exit");
+			response = raw_input("Choose a number from the list: ")
+			return response
+
+	def isSelectedMenuValid(self, entry):
+		if int(entry) in [1, 2, 3, 4]:
+			return False
+		else:
+			return True
 
 	def storeStudent(self):
 		response = raw_input("Enter a student number: ")
@@ -71,6 +80,3 @@ class Phonebook:
 
 aseanPhonebook = Phonebook("Name")
 aseanPhonebook.showMenuMain()
-aseanPhonebook.storeStudent()
-aseanPhonebook.editStudent()
-aseanPhonebook.searchStudent()
