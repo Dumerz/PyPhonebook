@@ -25,25 +25,26 @@ class Student:
 
 class Phonebook:
 	students = []
+	validMainMenu = ['1', '2', '3', '4']
+	validStudSex = ['M', 'm', 'F', 'f']
+	validStudCodeCountry = ['60', '62', '63', '65', '66']
+	validIsAnotherEntry = ['N', 'n', 'Y', 'y']
+	validNo = ['N', 'n']
 
 	def run(self):
 		self.handleShowMenuMain();
 
 	def handleShowMenuMain(self):
 		selected = self.showMenuMain()
-		if selected == 1:
-			self.storeStudent()
-		elif selected == 2:
-			self.editStudent()
-		elif selected == 3:
-			self.searchStudent()
-		else:
-			self.exit()
+		if selected == 1: self.storeStudent()
+		elif selected == 2: self.editStudent()
+		elif selected == 3: self.searchStudent()
+		else: self.exit()
 
 	def showMenuMain(self):
 		response = 0
 		while True:
-			if not self.isSelectedMenuInvalid(response): break
+			if str(response) in self.validMainMenu: break
 			print("\n")
 			print("[1] Store to ASEAN phonebook")
 			print("[2] Edit Entry in ASEAN phonebook") 
@@ -52,12 +53,6 @@ class Phonebook:
 			response = raw_input("Choose a number from the list: ")
 		return int(response)
 
-	def isSelectedMenuInvalid(self, entry):
-		if int(entry) in [1, 2, 3, 4]:
-			return False
-		else:
-			return True
-
 	def storeStudent(self):
 		while True:
 			print("\n")
@@ -65,14 +60,23 @@ class Phonebook:
 			studNameSur = raw_input("Enter surname: ")
 			studNameFirst = raw_input("Enter first name: ")
 			studOccupation = raw_input("Enter occupation: ")
-			studSex = raw_input("M for male, F for Female : ")
-			studCodeCountry = raw_input("Enter country code: ")
+			while True:
+				studSex = raw_input("M for male, F for Female : ")
+				if studSex in self.validStudSex: break
+				else: self.inputInvalid()
+			while True:
+				studCodeCountry = raw_input("Enter country code: ")
+				if studCodeCountry in self.validStudCodeCountry: break
+				else: self.inputInvalid()
 			studCodeArea = raw_input("Enter area code: ")
 			studNumber = raw_input("Enter number: ")
 			student = Student(studNumber, studNameSur, studNameFirst, studOccupation, studSex, studCodeCountry, studCodeArea, studNumber)
 			self.students.append(student)
-			isAnotherEntry = str(raw_input("Do you want to enter another entry [Y/N]?: "))
-			if isAnotherEntry in ['N', 'n']: break
+			while True:
+				isAnotherEntry = raw_input("Do you want to enter another entry [Y/N]?: ")
+				if isAnotherEntry in self.validIsAnotherEntry: break
+				else: self.inputInvalid()
+			if isAnotherEntry in self.validNo: break
 		self.handleShowMenuMain();
 
 	def editStudent(self):
@@ -95,6 +99,9 @@ class Phonebook:
 		print("[5] Malaysia [6] ALL [0] No More")
 		response = raw_input("Enter choice 1: ")
 		self.handleShowMenuMain();
+
+	def inputInvalid(self):
+		print("Invalid input!")
 
 	def exit(self):
 		print("\nBye!")
